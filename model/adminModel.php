@@ -13,13 +13,6 @@
 			return false;
 		}
 	}
-	function getAdminByName($name){
-		$con = getConnection();
-		$sql= "select * from admins where name like '%{$name}%'";
-		$result = mysqli_query($con, $sql);
-		//$user = mysqli_fetch_assoc($result);
-		return $result;
-}
 
 	function addAdmin($user){
 		$con = getConnection();
@@ -37,6 +30,14 @@
 		$con = getConnection();
 		$sql= "select * from admins";
 		$result = mysqli_query($con, $sql);
+		return $result;
+	}
+
+	function getAdminByName($name){
+		$con = getConnection();
+		$sql= "select * from admins where name like '%{$name}%'";
+		$result = mysqli_query($con, $sql);
+		//$user = mysqli_fetch_assoc($result);
 		return $result;
 	}
 
