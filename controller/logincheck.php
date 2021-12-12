@@ -1,6 +1,8 @@
 <?php
 	session_start();
 	require_once('../model/usersModel.php');
+	require_once('../model/adminModel.php');
+	require_once('../model/transAdminModel.php');
 
 	if(isset($_POST['submit'])){
 		$username = $_POST['username'];
@@ -9,6 +11,8 @@
 		if($username != ""){
 			if($password != ""){
 				$status = validate($username, $password);
+				$status1 = validateAdmin($username, $password);
+				$status2 = validateTAdmin($username, $password);
 
 				if($status){
 					setcookie('isLoggedIn', 'true', time()+3600, '/');
@@ -17,9 +21,28 @@
 
                     header('location: ../index1.html');
 
-				echo "invalid username/password";
+			   }
+			   	elseif($status1){
+					setcookie('isLoggedIn', 'true', time()+3600, '/');
+					setcookie('loggedInName',$username,time()+3600,'/');
+                    setcookie('loggedInPw',$password,time()+3600,'/');
 
-			}else{
+                    header('location: ../views/adminDashboard.php');
+
+			   }
+			  
+			   	elseif($status2){
+					setcookie('isLoggedIn', 'true', time()+3600, '/');
+					setcookie('loggedInName',$username,time()+3600,'/');
+                    setcookie('loggedInPw',$password,time()+3600,'/');
+
+                    header('location: ../views/transDashboard.php');
+
+			   }
+			   
+
+
+			else{
 				echo "Invalid password...";
 			}
 		}else{
